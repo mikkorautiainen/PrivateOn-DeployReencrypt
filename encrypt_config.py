@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 ##
-## PrivateOn-VPN -- Because privacy matters.
+## PrivateOn-DeployReencrypt -- Because privacy matters
 ##
 ## Author: Mikko Rautiainen <info@tietosuojakone.fi>
 ##
@@ -10,9 +10,10 @@
 ##
 
 ##
-##  This module reads the encrypted partion path from the configuration file
+##  This module reads the encrypted partition path from the configuration file
 ##  and updates the status of the re-encryption process to the file.
 ##
+
 
 import internal_block_device_resource
 import os
