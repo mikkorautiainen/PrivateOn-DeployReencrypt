@@ -19,7 +19,7 @@
 
 import sys, os, time, subprocess
 from PyQt5.QtWidgets import QApplication, QInputDialog, QWidget, QDialog, QGridLayout, QHBoxLayout, QVBoxLayout, QComboBox, QProgressBar, QPushButton, QMessageBox, QLabel, QLineEdit, QSizePolicy, qApp
-from PyQt5.QtCore    import QCoreApplication, QObject, pyqtSignal
+from PyQt5.QtCore    import QCoreApplication, QObject, Qt, pyqtSignal
 from PyQt5.QtGui     import QIcon
 import encrypt_config
 import reencrypt_backend
@@ -123,6 +123,7 @@ class MainWindow(QWidget):
         self.lbl_raw_info.hide()
         self.setLayout(self.ltTop)
         self.setWindowTitle('PrivateOn DeployReencrypt')
+        self.setWindowFlags(Qt.FramelessWindowHint)
         self.get_encrypted_part()
         self.show_luks_header()
         self.showMaximized()
