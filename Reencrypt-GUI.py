@@ -2,18 +2,19 @@
 # -*- coding: utf-8 -*-
 
 ##
-## PrivateOn-DeployReencrypt -- Because privacy matters
+##   PrivateOn-DeployReencrypt -- Because privacy matters
 ##
-## Author: Mstislav Toivonen <matti-toivonen@users.noreply.github.com>
+##   Authors: Mikko Rautiainen <info@tietosuojakone.fi>
+##            Mstislav Toivonen <matti-toivonen@users.noreply.github.com>
 ##
-## Copyright (C) 2016  PrivateOn / Tietosuojakone Oy, Helsinki, Finland
-## Released under the GNU Lesser General Public License
+##   Copyright (C) 2016-2017  PrivateOn / Tietosuojakone Oy, Helsinki, Finland
+##   Released under the GNU Lesser General Public License
 ##
 
 ##
-##  This is the graphical interface for re-encrypting the user's disk. 
-##  The application has buttons for adding/deleting key-slots, viewing the header/master-key, 
-##  re-encrypting the disk, powering-off/rebooting the computer and launching a terminal window. 
+##  This is the graphical interface for re-encrypting the user's disk.
+##  The application has buttons for adding/deleting key-slots, viewing the header/master-key,
+##  re-encrypting the disk, powering-off/rebooting the computer and launching a terminal window.
 ##
 
 
@@ -23,6 +24,7 @@ from PyQt5.QtCore    import QCoreApplication, QObject, Qt, pyqtSignal
 from PyQt5.QtGui     import QIcon
 import encrypt_config
 import reencrypt_backend
+
 
 class MainWindow(QWidget):
     SLOTS_AMOUNT = 8
@@ -111,13 +113,13 @@ class MainWindow(QWidget):
         ##END Positioning of the elements
         ##BEGIN Setting up connections between elements and their events handlers
         self.btn_show_master_key.clicked.connect(self.btn_show_master_key_OnClick)
-        self.btn_add_key        .clicked.connect(self.btn_add_key_OnClick        ) 
-        self.btn_delete_key     .clicked.connect(self.btn_delete_key_OnClick     ) 
-        self.btn_re_encrypt     .clicked.connect(self.btn_re_encrypt_OnClick     )      
-        self.btn_do_reboot      .clicked.connect(self.btn_do_reboot_OnClick      ) 
-        self.btn_do_poweroff    .clicked.connect(self.btn_do_poweroff_OnClick    ) 
-        self.btn_shell          .clicked.connect(self.btn_shell_OnClick          ) 
-        self.btn_details        .clicked.connect(self.btn_details_OnClick        )                          
+        self.btn_add_key        .clicked.connect(self.btn_add_key_OnClick        )
+        self.btn_delete_key     .clicked.connect(self.btn_delete_key_OnClick     )
+        self.btn_re_encrypt     .clicked.connect(self.btn_re_encrypt_OnClick     )
+        self.btn_do_reboot      .clicked.connect(self.btn_do_reboot_OnClick      )
+        self.btn_do_poweroff    .clicked.connect(self.btn_do_poweroff_OnClick    )
+        self.btn_shell          .clicked.connect(self.btn_shell_OnClick          )
+        self.btn_details        .clicked.connect(self.btn_details_OnClick        )
         ##END Setting up connections between elements and their events handlers
         self.lbl_keys_info.hide()
         self.lbl_raw_info.hide()
@@ -136,10 +138,10 @@ class MainWindow(QWidget):
         MainWindow.PASSWORD2      = self.window_password.ldt_pass2.text()
         MainWindow.SLOT_TO_ADD    = int(self.window_password.cbx_keys_to_add.currentText()[-1])    if self.window_password.cbx_keys_to_add.currentText()    else None
         MainWindow.SLOT_TO_DELETE = int(self.window_password.cbx_keys_to_delete.currentText()[-1]) if self.window_password.cbx_keys_to_delete.currentText() else None
-    
+
     def makeErrorPopUp(self, message):
         QMessageBox.critical(self, '!', message, QMessageBox.Ok)
-    
+
     def btn_show_master_key_OnClick(self):
         if MainWindow.CACHE == "":
             self.makeSettingsPopUp()
@@ -161,7 +163,7 @@ class MainWindow(QWidget):
             self.makeErrorPopUp(read_master_key_error_message)
             MainWindow.CACHE = ""
             self.btn_show_master_key.setEnabled(True)
-        
+
     def btn_add_key_OnClick(self):
         # reencrypt_backend.read_luks_header(part) | return luks_dict, luks_details, error_message
         luks_dict, luks_details, read_luks_header_error_message = reencrypt_backend.read_luks_header(MainWindow.ENCRYPT_PART)
@@ -176,7 +178,7 @@ class MainWindow(QWidget):
                 else:
                     self.makeSettingsPopUp(pass1_needed=False, pass2_needed=True, add_list=slots_to_add)
                     MainWindow.PASSWORD1 = MainWindow.CACHE
-                # add_key(part, password_current, pasword_new, key_slot) | return error_message   
+                # add_key(part, password_current, pasword_new, key_slot) | return error_message
                 add_key_error_message = reencrypt_backend.add_key(MainWindow.ENCRYPT_PART, MainWindow.PASSWORD1, MainWindow.PASSWORD2, MainWindow.SLOT_TO_ADD)
                 if add_key_error_message != None:
                     self.makeErrorPopUp(add_key_error_message)
@@ -185,7 +187,7 @@ class MainWindow(QWidget):
         else:
             self.makeErrorPopUp(read_luks_header_error_message)
         self.show_luks_header()
-        
+
     def btn_delete_key_OnClick(self):
         # reencrypt_backend.read_luks_header(part) | return luks_dict, luks_details, error_message
         luks_dict, luks_details, read_luks_header_error_message = reencrypt_backend.read_luks_header(MainWindow.ENCRYPT_PART)
@@ -200,7 +202,7 @@ class MainWindow(QWidget):
                 else:
                     self.makeSettingsPopUp(pass1_needed=False, pass2_needed=False, delete_list=slots_to_delete)
                     MainWindow.PASSWORD1 = MainWindow.CACHE
-                # delete_key(part, password_current, key_slot) | return error_message 
+                # delete_key(part, password_current, key_slot) | return error_message
                 delete_key_error_message = reencrypt_backend.delete_key(MainWindow.ENCRYPT_PART, MainWindow.PASSWORD1, MainWindow.SLOT_TO_DELETE)
                 if delete_key_error_message != None:
                     self.makeErrorPopUp(delete_key_error_message)
@@ -209,7 +211,7 @@ class MainWindow(QWidget):
         else:
             self.makeErrorPopUp(read_luks_header_error_message)
         self.show_luks_header()
-        
+
     def btn_re_encrypt_OnClick(self):
         def buttons(enabled):
             self.btn_show_master_key.setEnabled(enabled)
@@ -223,7 +225,7 @@ class MainWindow(QWidget):
         self.makeSettingsPopUp()
         # reencrypt_backend.preflight_check(part) | return error_message
         preflight_check_error_message = reencrypt_backend.preflight_check(MainWindow.ENCRYPT_PART, MainWindow.PASSWORD1)
-        if preflight_check_error_message != None: 
+        if preflight_check_error_message != None:
             self.makeErrorPopUp(preflight_check_error_message)
             buttons(True)
             return
@@ -231,7 +233,7 @@ class MainWindow(QWidget):
         if user_answer == QMessageBox.Yes:
             # reencrypt_backend.do_reecnrypt(part, password) | return error_message
             do_reecnrypt_error_message = reencrypt_backend.do_reecnrypt(MainWindow.ENCRYPT_PART, MainWindow.PASSWORD1)
-            if do_reecnrypt_error_message != None: 
+            if do_reecnrypt_error_message != None:
                 self.makeErrorPopUp(do_reecnrypt_error_message)
                 buttons(True)
                 return
@@ -273,7 +275,7 @@ class MainWindow(QWidget):
             do_reboot_error_message = reencrypt_backend.do_reboot()
             if do_reboot_error_message != None:
                 self.makeErrorPopUp(do_reboot_error_message)
-            
+
     def btn_do_poweroff_OnClick(self):
         user_answer = QMessageBox.question(self, '!', 'Do you want to poweroff?', QMessageBox.Yes, QMessageBox.No)
         if user_answer == QMessageBox.Yes:
@@ -281,30 +283,30 @@ class MainWindow(QWidget):
             do_poweroff_error_message = reencrypt_backend.do_poweroff()
             if do_poweroff_error_message != None:
                 self.makeErrorPopUp(do_poweroff_error_message)
-            
+
     def btn_shell_OnClick(self):
         # open_terminal() | return error_message
         open_terminal_error_message = self.open_terminal()
         if open_terminal_error_message != None:
             self.makeErrorPopUp(open_terminal_error_message)
-        
+
     def btn_details_OnClick(self):
         if self.btn_details.isChecked():
             self.lbl_raw_info.show()
             self.lbl_header_info.hide()
-        else:        
+        else:
             self.lbl_raw_info.hide()
             self.lbl_header_info.show()
-            
+
     def get_encrypted_part(self):
         config, get_encrypted_part_error_message = encrypt_config.get_encrypted_part()
         if config:
             MainWindow.ENCRYPT_CONFIG = config
             if 'encrypt_part' in config:
                 MainWindow.ENCRYPT_PART = config['encrypt_part']
-            else:        
+            else:
                 self.makeErrorPopUp("Error: Encrypted partition not found in configurtion file.")
-        else:        
+        else:
             self.makeErrorPopUp(get_encrypted_part_error_message)
 
     def update_config_file(self):
@@ -321,7 +323,7 @@ class MainWindow(QWidget):
             self.lbl_raw_info   .setText("\n".join(["%s" % i for i in luks_details]))
         else:
             self.makeErrorPopUp(read_luks_header_error_message)
-            
+
     def open_terminal(self):
         error_message = None
         try:
@@ -337,6 +339,7 @@ class MainWindow(QWidget):
             error_message = "Failed with generic error: %s" % (err)
             return error_message
         return error_message
+
 
 class SettingsPopUp(QDialog):
     def __init__(self, sender, pass1_needed=True, pass2_needed=False, add_list=None, delete_list=None):
@@ -399,8 +402,8 @@ class SettingsPopUp(QDialog):
             self.cbx_keys_to_delete.show()
         else:
             self.cbx_keys_to_delete.hide()
-        
-        
+
+
 def main():
     app = QApplication(sys.argv)
     GUI = MainWindow()

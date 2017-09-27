@@ -8,7 +8,7 @@
 ##
 
 ##
-##  Copyright (C) 2017  PrivateOn / Tietosuojakone Oy, Helsinki, Finland
+##  Copyright (C) 2016-2017  PrivateOn / Tietosuojakone Oy, Helsinki, Finland
 ##  Released under the GNU Lesser General Public License
 ##
 

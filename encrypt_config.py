@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
 ##
-## PrivateOn-DeployReencrypt -- Because privacy matters
+##  PrivateOn-DeployReencrypt -- Because privacy matters
 ##
-## Author: Mikko Rautiainen <info@tietosuojakone.fi>
+##  Author: Mikko Rautiainen <info@tietosuojakone.fi>
 ##
-## Copyright (C) 2016  PrivateOn / Tietosuojakone Oy, Helsinki, Finland
-## Released under the GNU Lesser General Public License
+##  Copyright (C) 2016-2017  PrivateOn / Tietosuojakone Oy, Helsinki, Finland
+##  Released under the GNU Lesser General Public License
 ##
 
 ##
@@ -79,7 +79,7 @@ def find_ext_part(blkdev_path):
 
 def find_boot_part ():
     error_message = None
-    # find all internal devices 
+    # find all internal devices
     blkdevs = internal_block_device_resource.get_internal_devices()
 
     print("get_internal_devices = " + ' '.join(blkdevs))
@@ -115,7 +115,7 @@ def add_sudo(command):
                 command = SUDO + ' ' + command
         else:
             command = SUDO + ' ' + command
-        
+
     return command
 
 
@@ -206,7 +206,7 @@ def read_config_file(config):
     except:
         error_message = 'Error reading \"' + config['config_file'] + '\", configuration update failed.'
 
-    return encrypt_part, error_message 
+    return encrypt_part, error_message
 
 
 
@@ -252,7 +252,7 @@ def write_config_file(value, config_file):
 
 def get_encrypted_part ():
     config = {}
- 
+
     config['config_file'] = check_script_directory_for_config ()
     if config['config_file']:
         config['encrypt_part'], error_message = read_config_file(config)

@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
 ##
-## PrivateOn-DeployReencrypt -- Because privacy matters
+##   PrivateOn-DeployReencrypt -- Because privacy matters
 ##
-## Author: Mikko Rautiainen <info@tietosuojakone.fi>
+##   Author: Mikko Rautiainen <info@tietosuojakone.fi>
 ##
-## Copyright (C) 2016  PrivateOn / Tietosuojakone Oy, Helsinki, Finland
-## Released under the GNU Lesser General Public License
+##   Copyright (C) 2016-2017  PrivateOn / Tietosuojakone Oy, Helsinki, Finland
+##   Released under the GNU Lesser General Public License
 ##
 
 ##
@@ -64,7 +64,6 @@ def run_command_with_output(command, description, target):
     try:
         output = subprocess.check_output(command, stderr=subprocess.STDOUT, shell=True)
     except subprocess.CalledProcessError, err:
-#        error_message = "Error: %s failed for %s with process error: returned non-zero exit status %s" % (description, target, str(err.returncode) )
         error_message = "Error: %s failed for %s with process error: %s" % (description, target, err.output)
         return [], error_message
     except OSError as err:
@@ -133,7 +132,7 @@ def add_sudo(command):
                 command = SUDO + ' ' + command
         else:
             command = SUDO + ' ' + command
-        
+
     return command
 
 
@@ -304,7 +303,7 @@ def read_master_key(part, password):
         return error_message
 
     # make random target name
-    map_name = 'target_' + ''.join( random.choice(string.lowercase) for i in range(5) ) 
+    map_name = 'target_' + ''.join( random.choice(string.lowercase) for i in range(5) )
 
     # run cryptsetup luksOpen
     command = "printf '" + password + "'" + ' | ' + CRYPTSETUP + ' luksOpen '
