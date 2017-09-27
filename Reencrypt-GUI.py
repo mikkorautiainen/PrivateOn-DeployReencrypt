@@ -285,10 +285,14 @@ class MainWindow(QWidget):
                 self.makeErrorPopUp(do_poweroff_error_message)
 
     def btn_shell_OnClick(self):
-        # open_terminal() | return error_message
-        open_terminal_error_message = self.open_terminal()
-        if open_terminal_error_message != None:
-            self.makeErrorPopUp(open_terminal_error_message)
+        if self.check_previous_terminal():
+            # bring previously opened shell to front
+            self.bring_terminal_to_front()
+        else:
+            # open_terminal() | return error_message
+            open_terminal_error_message = self.open_terminal()
+            if open_terminal_error_message != None:
+                self.makeErrorPopUp(open_terminal_error_message)
 
     def btn_details_OnClick(self):
         if self.btn_details.isChecked():
@@ -323,6 +327,20 @@ class MainWindow(QWidget):
             self.lbl_raw_info   .setText("\n".join(["%s" % i for i in luks_details]))
         else:
             self.makeErrorPopUp(read_luks_header_error_message)
+
+    def check_previous_terminal(self):
+        try:
+            subprocess.check_call("wmctrl -l | grep Terminal", shell=True)
+        except:
+            return False
+        return True
+
+    def bring_terminal_to_front(self):
+        try:
+            subprocess.check_call("wmctrl -a 'Terminal'", shell=True)
+        except:
+            return False
+        return True
 
     def open_terminal(self):
         error_message = None
