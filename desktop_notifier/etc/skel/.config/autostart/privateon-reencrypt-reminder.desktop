@@ -1,0 +1,8 @@
+[Desktop Entry]
+Terminal=false
+Type=Application
+Categories=Utility;
+Name=PrivateOn Reencrypt Reminder
+Comment=PrivateOn Reencrypt Reminder
+Exec=/opt/PrivateOn-Reencrypt/check_and_notify.py
+StartupNotify=false
