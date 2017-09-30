@@ -1,0 +1,4 @@
+#!/bin/sh
+
+/opt/PrivateOn-Reencrypt/check_and_notify.py -i 10 &
+

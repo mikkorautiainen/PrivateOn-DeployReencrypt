@@ -1,0 +1,3 @@
+## Grant all users access to PrivateOn-Reencrypt
+Cmnd_Alias REENCRYPT = /opt/PrivateOn-Reencrypt/config_handler.sh
+ALL ALL=NOPASSWD: REENCRYPT
