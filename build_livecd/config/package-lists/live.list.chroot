@@ -1,0 +1,15 @@
+live-boot
+live-config
+live-config-systemd
+python
+python-pyqt5
+python-parted
+xserver-xorg-core
+xinit
+marco
+xfce4-terminal
+util-linux
+dmsetup
+cryptsetup
+gksu
+iptables-persistent

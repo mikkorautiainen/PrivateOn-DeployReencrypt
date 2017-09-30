@@ -1,0 +1,6 @@
+#!/bin/sh
+
+/opt/reencrypt_debug.sh &
+
+exec marco
+
