@@ -1,6 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
-/opt/reencrypt.sh &
+marco &
 
-exec marco
-
+while true; do
+	python2 /opt/PrivateOn-DeployReencrypt/Reencrypt-GUI.py
+	sleep 1
+done

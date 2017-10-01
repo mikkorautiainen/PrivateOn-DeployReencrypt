@@ -63,7 +63,7 @@ LB_GRUB_SPLASH=""
 
 # $LB_HDD_LABEL: set hdd label
 # (Default: DEBIAN_LIVE)
-LB_HDD_LABEL="DEBIAN_LIVE"
+LB_HDD_LABEL="PRIVATEON_REENCRYPT"
 
 # $LB_HDD_SIZE: set hdd filesystem size
 # (Default: auto)
@@ -75,7 +75,7 @@ LB_HDD_PARTITION_START=""
 
 # $LB_ISO_APPLICATION: set iso author
 # (Default: Debian Live)
-LB_ISO_APPLICATION="Debian Live"
+LB_ISO_APPLICATION="PrivateOn Reencrypt"
 
 # $LB_ISO_PREPARER: set iso preparer
 # (Default: live-build $VERSION; http://live-systems.org/devel/live-build)
@@ -83,11 +83,11 @@ LB_ISO_PREPARER="live-build $VERSION; http://live-systems.org/devel/live-build"
 
 # $LB_ISO_PUBLISHER: set iso publisher
 # (Default: Live Systems project; http://live-systems.org/; debian-live@lists.debian.org)
-LB_ISO_PUBLISHER="Live Systems project; http://live-systems.org/; debian-live@lists.debian.org"
+LB_ISO_PUBLISHER="PrivateOn / Tietosuojakone Oy; Live Systems project; https://privateon.net/; info@tietosuojakone.fi"
 
 # $LB_ISO_VOLUME: set iso volume (max 32 chars)
 # (Default: Debian stretch $(date +%Y%m%d-%H:%M))
-LB_ISO_VOLUME="Debian stretch $(date +%Y%m%d-%H:%M)"
+LB_ISO_VOLUME="PrivateOn Reencrypt $(date +%Y-%m)"
 
 # $LB_JFFS2_ERASEBLOCK: set jffs2 eraseblock size
 # (Default: unset)

@@ -1,6 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
-/opt/reencrypt_debug.sh &
+marco &
 
-exec marco
+python2 /opt/PrivateOn-DeployReencrypt/Reencrypt-GUI.py
 
+killall -9 marco

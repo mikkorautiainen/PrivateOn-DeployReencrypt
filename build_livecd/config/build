@@ -5,6 +5,6 @@ Distribution: stretch
 Mirror-Bootstrap: http://ftp.debian.org/debian/
 
 [FIXME]
-Configuration-Version: 1:20170213
-Name: live-image
+Configuration-Version: 1:20171001
+Name: PrivateOn-Reencrypt
 Type: iso-hybrid
